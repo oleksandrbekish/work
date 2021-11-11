@@ -1,0 +1,88 @@
+.main {
+  display: flex;
+}
+
+.name {
+  text-align: center;
+}
+
+.registration {
+  width: 25%;
+}
+
+.registration__name {
+  text-align: center;
+}
+
+.registration__table__form {
+  margin-left: 50px;
+}
+
+.registration__table__form__first_name {
+  height: 25px;
+}
+
+.registration__table__form__last_name {
+  height: 25px;
+}
+
+.registration__table__form__login {
+  height: 25px;
+}
+
+.registration__table__form__email {
+  height: 25px;
+}
+
+.registration__table__form__password {
+  height: 25px;
+}
+
+.registration__table__form__repeat_password {
+  height: 25px;
+}
+
+.registration__table__form__phone {
+  height: 25px;
+}
+
+.registration__table__form__button {
+  height: 35px;
+  width: 200px;
+  border-radius: 20px 20px 20px 20px;
+  color: #fff;
+  background-color: #5e5373;
+  box-shadow: 1 5px 0px #3c354a;
+}
+
+.users_list {
+  width: 75%;
+}
+
+.users_list__name {
+  text-align: center;
+}
+
+.users_list__table {
+  width: 100%;
+}
+
+.users_list__table__first_tr {
+  border: 1px solid black;
+  text-align: center;
+  height: 40px;
+  background-color: #f2f2f2;
+  background-color: #9aa8a8;
+}
+
+.users_list__table__second_tr {
+  height: 40px;
+}
+
+.users_list__table__second_tr__btn {
+  cursor: pointer;
+  border: none;
+  background: none;
+  justify-content: center;
+}
+/*# sourceMappingURL=style.css.map */
