@@ -1,8 +1,13 @@
 
 import { React, useState } from 'react';
+import { funcValidName } from './component/validateName';
+import { funcValidLogin } from './component/validateLogin';
+import { funcValidEmail } from './component/validateEmail';
+import { funcValidPhone } from './component/validatePhone';
 
 import './App.css';
 import data from './m-d.json';
+
 
 
 
@@ -27,51 +32,13 @@ function App() {
   };
 
   const handleAddFormSubmit = (event) => {
-    console.log(addFormData)
-    //debugger
-    /*if (funcValidName(addFormData.firstN)) {
-      if (funcValidName(addFormData.lastN)) {
-        if (funcValidLogin(addFormData.log)) {
-          if (funcValidEmail(addFormData.ema)) {
-            if (addFormData.pass === addFormData.reppass) {
-              if (funcValidPhone(addFormData.phon)) {
-                console.log('good')
-                
-                event.preventDefault()
-                const newContact = {
-                  firstN: addFormData.firstN,
-                  lastN: addFormData.lastN,
-                  log: addFormData.log,
-                  ema: addFormData.ema,
-                  pass: addFormData.pass,
-                  reppass: addFormData.reppass,
-                  phon: addFormData.phon
-                }
-                console.log(contacts)
-                setContacts([...contacts, newContact])
-                
-              }
-            }
-          }
-        }
-      }
-      else {
-        console.log('error1')
-      }
-    }
-    else {
-      console.log(contacts)
-      console.log('error')
-    }*/
     if (!!funcValidName(addFormData.firstN) &&
       !!funcValidName(addFormData.lastN) &&
       !!funcValidLogin(addFormData.log) &&
       !!funcValidEmail(addFormData.ema) &&
       !!funcValidPhone(addFormData.phon) &&
       addFormData.pass === addFormData.reppass
-    ) 
-     {
-       funcValidName(addFormData.firstN)
+    ) {
       //console.log("test");
       event.preventDefault();
       const newContact = {
@@ -83,78 +50,36 @@ function App() {
         reppass: addFormData.reppass,
         phon: addFormData.phon
       }
-      
+      function localSt() {
 
-      const newContacts = [...contacts, newContact]
-      setContacts(newContacts);
-      console.log(contacts)
-    }
+        const us = JSON.parse(localStorage.getItem("Users")) ?? [];
+        if(us == null);
+        let Users = {
+           'First name': addFormData.firstN,
+           'Last name': addFormData.lastN,
+           'login': addFormData.log,
+           'email': addFormData.ema,
+           'phone': addFormData.phon
+        };
+       localStorage.setItem("User", JSON.stringify(Users));
+       us.push(Users);
+       localStorage.setItem("Users", JSON.stringify(us));
+
+        
+        
+      }
+        localSt();
+        
+
+        const newContacts = [...contacts, newContact]
+        setContacts(newContacts);
+        console.log(contacts)
+      }
     else {
+      event.preventDefault();
       console.log('error')
     }
-
-    
-    if (addFormData.pass === addFormData.reppass) {
-      console.log('true pass')
-    } else {
-      console.log("error pass")
-    }
-
-
   }
-
-
-  function funcValidName(value) {
-    const my_regex = /^[А-ЯЁ][а-яА-ЯёЁ\s]+$/;
-    const reqex = my_regex.test(value)
-    //console.log(reqex)
-    if (reqex) {
-      if (value.charAt(0) === value.charAt(0).toUpperCase()) {
-        console.log("success")
-        return true
-
-      }
-      else {
-        return false
-      }
-    }
-    else {
-      return false
-    }
-  }
-
-
-  function funcValidLogin(value) {
-    console.log(value)
-    const my_regex1 = /^[a-z\s]+$/;
-    const regex1 = my_regex1.test(value)
-    //console.log(regex1, 'log')
-    if(regex1){
-      return true
-    }
-  }
-
-
-  function funcValidEmail(value) {
-    const my_regex2 = /^[a-z0-9._%+-]+@[a-z0-9-]+.+.[a-z]{2,4}$/;
-    const regex2 = my_regex2.test(value)
-    console.log(regex2, "email")
-    if(regex2){
-      return true
-    }
-  }
-
-
-  function funcValidPhone(value) {
-    const my_regex3 = /^\+38\(\d{3}\)\d{3}-\d{2}-\d{2}$/;
-    const regex3 = my_regex3.test(value)
-    console.log(regex3, "phone")
-    if(regex3){
-      return true
-    }
-
-  }
-
 
   return (
     <div>
@@ -176,7 +101,7 @@ function App() {
               Password: <input onChange={handleAddFormChange} type="password" name="pass" className="registration__table__form__password" /><br></br><br></br>
               Repeat Password: <input onChange={handleAddFormChange} name='reppass' type="password" className="registration__table__form__repeat_password" /><br></br><br></br>
               Phone: <input type="text" onChange={handleAddFormChange} name="phon" className="registration__table__form__phone" placeholder="+38(097)475-87-16" /><br></br><br></br>
-              <button type='submit' className="registration__table__form__button" >Create</button>
+              <button type='submit' className="registration__table__form__button"  >Create</button>
             </form>
           </div>
         </div>
@@ -185,7 +110,6 @@ function App() {
           <table className="users_list__table">
             <thead>
               <tr className="users_list__table__first_tr">
-                <th><b>№</b></th>
                 <th><b>First Name</b></th>
                 <th><b>Last Name</b></th>
                 <th><b>Login</b></th>
@@ -197,7 +121,6 @@ function App() {
             <tbody className="user_list_table_body">
               {contacts.map((contacts) => (
                 <tr>
-                  <td><b>{ }</b></td>
                   <td><b>{contacts.firstN}</b></td>
                   <td><b>{contacts.lastN}</b></td>
                   <td><b>{contacts.log}</b></td>
